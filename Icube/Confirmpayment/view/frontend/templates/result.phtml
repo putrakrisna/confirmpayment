@@ -1,0 +1,68 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="track-order-wrapper">
+	<div class="page-title">
+      <h1><?php echo __('Confirm Payment Result') ?></h1>
+  </div>
+	<?php 
+	$result = $this->getResult();
+	
+	if ($result->getIncrementId()):
+    
+	?>
+	<div class="result-content">
+		<!--result content left side-->
+			<table id="trackorder">
+				<tr>
+					<td><?php echo  __('Order Status');?></td>	
+					
+					<td><?php echo __(': ').ucfirst(str_replace( "_", " ", $result->getStatus()));?></td>
+				</tr>
+				<tr>
+					<td><?php echo  __('Ship To');?></td>
+					
+					<td><?php echo __(': ').$result->getShippingAddress()->getName();?></td>
+				</tr>
+				<tr>
+					<td><?php echo  __('Order Number');?></td>
+					
+					<td><?php echo __(': ').$result->getIncrementId();?></td>
+				</tr>
+				<tr>
+					<td><?php echo  __('Order Total');?></td>
+					
+					<td><?php echo __(': ').$result->formatPrice($result->getGrandTotal());?></td>
+				</tr>
+				<tr>
+					<td><?php echo  __('Payment Method');?></td>
+					
+					<td><?php echo __(': ').$result->getPayment()->getMethodInstance()->getTitle();?></td>
+				</tr>
+				<tr>
+					<td><?php echo  __('Shipping Method');?></td>
+					
+					<td>
+					 <?php echo __(': ');?>
+						<?php if ($result->getShippingDescription()): ?>
+              <?php echo $this->escapeHtml($result->getShippingDescription()) ?>
+            <?php else: ?>
+                <p><?php echo $this->helper('sales')->__('No shipping information available'); ?></p>
+            <?php endif; ?>
+					</td>
+				</tr>
+			</table>
+		<?php 
+		else:
+			echo  __('Orders can not be found.');
+		endif;
+		?>
+		<br/><br/>
+	</div>
+</div>

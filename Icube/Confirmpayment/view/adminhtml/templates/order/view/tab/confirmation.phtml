@@ -1,0 +1,77 @@
+<?php
+
+?>
+<?php /** @var $block \Icube\Confirmpayment\Block\Adminhtml\Order\View\Tab\Confirmation */ ?>
+<?php 
+	$_order = $block->getOrder();
+    // var_dump($_order);
+	$_confirmation = $block->getConfirmation($_order->getIncrementId());
+?>
+
+<input type="hidden" name="order_id" value="<?php /* @escapeNotVerified */ echo $_order->getId() ?>"/>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?php /* @escapeNotVerified */ echo __('Payment Confirmation Details') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item">
+        <?php if ($_confirmation->getId()):?>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?php /* @escapeNotVerified */ echo __('Bank Transfer Detail') ?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table cellspacing="0" class="form-list">
+                        <tr>
+                        <td class="label"><label><b><?php echo __('Date of Bank Transfer') ?></b></label></td>
+                        <td class="value"><?php if($_confirmation->getTransferDate() != ''){  $strDate = $_confirmation->getTransferDate();
+                                $arrDate = explode(' ',$strDate);
+                                $intDate = strtotime($arrDate[0]);
+                                $dtDate = date('d F Y',$intDate);
+                                echo $dtDate; } ?></td>
+                        </tr>
+                        <tr>
+                        <td class="label"><label><b><?php echo __('Date of File Submit') ?></b></label></td>
+                        <td class="value"><?php if($_confirmation->getTimeStamp() != ''){  
+                                $strDate = $_confirmation->getTimeStamp();
+                                $arrDate = explode(' ',$strDate);
+                                $intDate = strtotime($arrDate[0]);
+                                $dtDate = date('d F Y',$intDate);
+                                echo $dtDate; } ?></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label><b><?php echo __('Payment from Account') ?></b></label></td>
+                            <td class="value"><?php if($_confirmation->getPaymentFrom() != '') echo $_confirmation->getPaymentFrom(); ?></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label><b><?php echo __('Account Number') ?></b></label></td>
+                            <td class="value"><?php if($_confirmation->getAccountNumber() != '') echo $_confirmation->getAccountNumber(); ?></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label><b><?php echo __('Payment to Account') ?></b></label></td>
+                            <td class="value"><?php if($_confirmation->getPaymentTo() != '') echo $_confirmation->getPaymentTo(); ?></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label><b><?php echo __('Name of Account Holder') ?></b></label></td>
+                            <td class="value"><?php if($_confirmation->getHolderName() != '') echo $_confirmation->getHolderName(); ?></td>
+                        </tr>
+                        <tr>
+                            <td class="label"><label><b><?php echo __('Amount') ?></b></label></td>
+                            <td class="value"><?php if($_confirmation->getAmount() != '') echo $_confirmation->getAmount(); ?></td>
+                        </tr>
+                </table>
+            </div>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?php /* @escapeNotVerified */ echo __('Uploaded Receipt Image') ?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+            <img src="<?php echo $_confirmation->getImage();?>" width="800px" height="auto" />
+            </div>
+        <?php else: ?>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?php /* @escapeNotVerified */ echo __('No records found.') ?></span>
+            </div>
+        <?php endif; ?>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+    xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+           <referenceBlock name="sales_order_tabs">
+             <block class="Icube\Confirmpayment\Block\Adminhtml\Order\View\Tab\Confirmation" name="payment_confirmation_tab_info" template="order/view/tab/confirmation.phtml">
+              <!-- <block class="Icube\Confirmpayment\Block\Adminhtml\Order\View\Confirmation" name="payment_confirmation_info" template="Icube_Confirmpayment::order/view/confirmation.phtml"/> -->
+              <action method="setTabLabel">
+                  <argument name="label" xsi:type="string">Payment Confirmation</argument>
+              </action>
+            </block>
+            <action method="addTabAfter">
+                  <argument name="name" xsi:type="string">payment_confirmation_info</argument>
+                  <argument name="block" xsi:type="string">payment_confirmation_tab_info</argument>
+                  <argument name="after" xsi:type="string">order_info</argument>
+            </action>
+            <action method="setActiveTab">
+                  <argument name="name" xsi:type="string">order_info</argument>
+            </action>
+          </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sales_email>
+            <confirm_payment>
+                <enabled>1</enabled>
+                <template>sales_email_confirm_payment_template</template>
+                <!-- <guest_template>sales_email_order_guest_template</guest_template> -->
+                <identity>sales</identity>
+                <send_to>ecomm-opr@thebodyshop.co.id</send_to>
+            </confirm_payment>
+            <order>
+                <template>icube_email_order_template</template>
+            </order>
+        </sales_email>
+    </default>
+</config>

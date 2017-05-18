@@ -1,0 +1,16 @@
+<?php $order = $block->getOrder(); ?>
+<?php $orderData = $order->getData(); ?> 
+
+<?php if($block->isBankTransfer()): ?>
+	<div class="bank-transfer-info">
+		<h4>Please do your payment to our Bank Account below:</h4>
+		<strong>
+			<?php echo $block->escapeHtml(__('Amount : ')); ?>
+			<?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($orderData['grand_total'],true,false); ?>
+		</strong>
+			<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('bank_account_info')->toHtml(); ?>
+		<p>
+			Click <a target="_blank" href="<?php echo $this->getUrl('how-to-pay'); ?>">here</a> for instruction how to transfer.
+		</p>
+	</div>
+<?php endif; ?>

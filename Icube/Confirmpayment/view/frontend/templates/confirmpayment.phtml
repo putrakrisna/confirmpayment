@@ -1,0 +1,110 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="confirm-payment-wrapper">
+  
+  
+  <div class="confirm-payment-content">
+    <form name="form" id="order_info_form" action="<?php echo $this->getUrl('confirmpayment/index/save'); ?>" method="post" enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+      <input type="hidden" name="payment_to" class="required-entry" value="Mandiri">
+      <fieldset class="fieldset">
+          <div class="field required">
+            <label class="label" for="order_id"><?php echo __('Order Number') ?></label>
+              <div class="control">
+                  <input type="text" name="order_id" id="order_id" class="input-text" title="<?php echo __('OrderId') ?>" data-validate="{required:true, 'validate-number':true}" />
+              </div>
+          </div>
+          <div class="field required">
+            <label for="payment_from" class="label required"><?php echo __('Bank Name') ?></label>
+        		<div class="control">
+		        	<input type="text" name="payment_from" id="payment_from" class="input-text" data-validate="{required:true}" />
+		        </div>
+          </div>
+          <div class="field required">
+            <label for="account_number" class="label required"><?php echo __('Your Bank Account Number') ?></label>
+        		<div class="control">
+		          <input type="text" name="account_number" id="account_number" class="input-text" data-validate="{required:true, 'validate-number':true}" />
+		        </div>
+          </div>
+          <div class="field required">
+            <label for="holder_name" class="label required"><?php echo __('Your Bank Account Name') ?></label>
+        		<div class="control">
+		        	<input type="text" name="holder_name" id="holder_name" class="input-text" data-validate="{required:true}" />
+		        </div>
+          </div>
+          <div class="field required">
+			        <label for="amount" class="label required"><?php echo __('Amount Transferred') ?></label>
+	        		<div class="control">
+			        	<input type="text" name="amount" id="amount" class="required-entry input-text" data-validate="{required:true, 'validate-number':true}" />
+			        </div>
+			    </div>
+			    <div class="field required">
+			        <label for="transfer_date" class="label required"><?php echo __('Transfer Date') ?></label>
+	        		<div class="control">
+			        	<input type="text" name="transfer_date" id="datepicker" placeholder="mm/dd/yyyy" class="input-text isDate maxtoday" autocomplete="off" data-validate="{required:true}">
+			        </div>
+			    </div>
+          <div class="field required">
+		        <label for="image" class="label required"><?php echo __('Upload Receipt Image') ?></label>
+        		<div class="control">
+		        	<input type="file" name="image" id="image" autocomplete="off" data-validate="{required:true}" data-msg-required="This field is Required with jpg/jpeg/png/gif file less than 2MB">
+              <p>*jpg/jpeg/png/gif file less than 2MB</p>
+		        </div>
+		      </div>
+      </fieldset>
+      
+      <div class="actions-toolbar">
+        <div class="primary">
+  		    <button type="submit" id="save_payment_info" title="<?php echo __('Confirm Payment') ?>" class="button action primary submit"><span><span><?php echo __('Confirm Payment') ?></span></span></button>
+  	    </div>   
+      </div>  
+    </form>  
+  </div>
+</div>
+<script type="text/javascript">
+  require([
+    'jquery', // jquery Library
+    'jquery/ui', // Jquery UI Library
+    'jquery/validate', // Jquery Validation Library
+    'mage/translate', // Magento text translate (Validation message translte as per language)
+    'mage/validation'
+  ], function($){ 
+    $('#order_id').blur(function() {
+        var orderId = $('#order_id').val();
+        $('#order_id').removeClass("mage-error");
+        $('#order_id').next('.mage-error').remove();
+        $('#order_id').removeAttr('aria-invalid');
+        $('#order_id').removeAttr('aria-describedby');
+        $.ajax('/confirmpayment/ajax/validation', {
+            data: {order_id:orderId},
+            type: "POST",
+            dataType: 'json',
+            success: function (data){
+              if(data!=null){
+                if(!data.error){ //validate if order number is bank transfer order
+                  $('#order_id').removeClass("mage-error");
+                  $('#order_id').next('.mage-error').remove();
+                  $('#order_id').removeAttr('aria-invalid');
+                  $('#order_id').removeAttr('aria-describedby');
+                }else {
+                  $('#order_id').val("");
+                  $('#order_id').parents("form").submit();
+                }
+              }else{
+                  $('#order_id').val("");
+                  $('#order_id').attr("data-msg-required","Invalid order number. This form is for Bank Transfer payment only, not for Virtual Account payment.");
+                  $('#order_id').parents("form").submit();
+                  $('#order_id').removeAttr("data-msg-required");
+              }
+            }
+        });
+
+    });
+  });
+</script>

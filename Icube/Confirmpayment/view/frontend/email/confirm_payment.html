@@ -1,0 +1,25 @@
+<!--@subject Payment confirmation for order #{{var data.order_id }} @-->
+<!--@vars {
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p>
+                New payment confirmation for order #{{var data.order_id}} has receive.
+            </p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <h3>Payment detail</h3>
+            <p>Order id #{{var data.order_id}}</p>
+            <p>{{var data.transfer_date}}</p>
+            <p>{{var data.holder_name}}</p>
+            <p>{{var data.payment_from}}/{{var data.account_number}}</p>
+            <p>amount: Rp {{var data.amount}}</p>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

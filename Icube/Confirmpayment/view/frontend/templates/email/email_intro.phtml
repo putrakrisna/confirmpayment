@@ -1,0 +1,7 @@
+<?php
+$paymentMethod = $this->getData('order')->getPayment()->getMethod();
+if($paymentMethod=='banktransfer'){
+	echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('email_intro_banktransfer')->toHtml();
+}else{
+	echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('email_intro_other')->toHtml();
+}

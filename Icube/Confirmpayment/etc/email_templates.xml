@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="sales_email_confirm_payment_template" label="Confirm Payment Notification" file="confirm_payment.html" type="html" module="Icube_Confirmpayment" area="frontend"/>
+    <template id="icube_email_order_template" label="Icube New Order" file="icube_new_order.html" type="html" module="Icube_Confirmpayment" area="frontend"/>
+</config>
